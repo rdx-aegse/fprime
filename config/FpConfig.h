@@ -108,8 +108,8 @@ typedef U32 FwPrmIdType;
 #define PRI_FwPrmIdType PRIu32
 
 // The type of a telemetry packet identifier
-typedef U16 FwTlmPacketizeIdType;
-#define PRI_FwTlmPacketizeIdType PRIu16
+typedef U32 FwTlmPacketizeIdType;
+#define PRI_FwTlmPacketizeIdType PRIu32
 
 // The type of a data product identifier
 typedef U32 FwDpIdType;
