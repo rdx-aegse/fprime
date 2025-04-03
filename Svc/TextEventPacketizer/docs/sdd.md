@@ -1,66 +1,40 @@
-# Svc::TextEventPacketizer
+# Svc::TextEventPacketizer Component
 
-Similar to ActiveLogger but collects textual representations of events instead of encoded representations of events, much like ActiveTextLogger does for console display of events. Therefore could be seen as merging the two components. placeholder. Use fprime-util impl
+## 1. Introduction
 
-## Usage Examples
-Add usage examples here
+The `Svc::TextEventPacketizer` component processes _textual_ events from other components via their LogText ports. This is the only difference compared to the [Svc::ActiveLogger](../../ActiveLogger/docs/sdd.md) component which is the default event logger in Fprime deployments. 
 
-### Diagrams
-Add diagrams here
+The events are put in packets and sent to an external component like the ground interface. The component provides event filtering capability such that events may be turned off via ID or severity.
 
-### Typical Usage
-And the typical usage of the component here
+## 2. Requirements
 
-## Class Diagram
-Add a class diagram here
+The requirements for `Svc::TextEventPacketizer` are as follows:
 
-## Port Descriptions
-| Name | Description |
-|---|---|
-|---|---|
+Requirement | Description | Verification Method
+----------- | ----------- | -------------------
+EP-001 | The `Svc::TextEventPacketizer` component shall have the same interfaces as `Svc::ActiveLogger` except for LogText input events instead of Log. | Inspection; Test
+EP-002 | The `Svc::TextEventPacketizer` component's output packet shall replace the LogPacket field in the output packet with the severity (as FwEnumStoreType) and the text event (as a fixed size string, without prepended size field). | Test
+EP-003 | The `Svc::TextEventPacketizer` component shall otherwise (i.e. wherever EP-001 and EP-002 do not apply) be identical to Svc::ActiveLogger in behaviour. | Test
 
-## Component States
-Add component states in the chart below
-| Name | Description |
-|---|---|
-|---|---|
+#### 3.1.2 Ports
 
-## Sequence Diagrams
-Add sequence diagrams here
+The `Svc::TextEventPacketizer` component uses the following port types:
 
-## Parameters
-| Name | Description |
-|---|---|
-|---|---|
+Port Data Type | Name | Direction | Kind | Usage
+-------------- | ---- | --------- | ---- | -----
+[`Fw::LogText`](../../../Fw/Log/docs/sdd.md) | LogRecv | Input | Synchronous | Receive _textual_ events from components
+[`Fw::Com`](../../../Fw/Log/docs/sdd.md) | PktSend | Output | n/a | Send event packets to external user
+[`Svc::FatalEvent`](../../../Svc/Fatal/docs/sdd.md) | FatalAnnounce | Output | n/a | Send FATAL event (to health)
 
-## Commands
-| Name | Description |
-|---|---|
-|---|---|
+## 5. Unit Testing
 
-## Events
-| Name | Description |
-|---|---|
-|---|---|
+Unit tests are not yet done for this component. It is believed to be low-risk given the similarity with ActiveLogger.
 
-## Telemetry
-| Name | Description |
-|---|---|
-|---|---|
+## 6. Change Log
 
-## Unit Tests
-Add unit test descriptions in the chart below
-| Name | Description | Output | Coverage |
-|---|---|---|---|
-|---|---|---|---|
+Date | Description
+---- | -----------
+04/03/2025 | First version
 
-## Requirements
-Add requirements in the chart below
-| Name | Description | Validation |
-|---|---|---|
-|---|---|---|
 
-## Change Log
-| Date | Description |
-|---|---|
-|---| Initial Draft |
+
